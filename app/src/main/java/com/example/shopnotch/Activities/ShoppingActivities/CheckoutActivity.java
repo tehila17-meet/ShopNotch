@@ -50,13 +50,6 @@ public class CheckoutActivity extends AppCompatActivity {
     TextView noOfItems;
     @BindView(R.id.total_amount)
     TextView totalAmount;
-    @BindView(R.id.main_activity_multi_line_radio_group)
-    MultiLineRadioGroup mainActivityMultiLineRadioGroup;
-    @BindView(R.id.ordername)
-    MaterialEditText ordername;
-    @BindView(R.id.orderemail)
-    MaterialEditText orderemail;
-    @BindView(R.id.ordernumber)
     MaterialEditText ordernumber;
     @BindView(R.id.orderaddress)
     MaterialEditText orderaddress;
@@ -69,7 +62,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
     private UserSession session;
     private FirebaseFirestore firebaseFirestore;
-    private String payment_mode="COD",order_reference_id;
+    private String payment_mode="PAYPAL",order_reference_id;
     private HashMap<String,String> user;
     private String placed_user_name,getPlaced_user_email,getPlaced_user_mobile_no;
     private String currdatetime;
@@ -126,12 +119,6 @@ public class CheckoutActivity extends AppCompatActivity {
         String tomorrow = (formattedDate.format(c.getTime()));
         deliveryDate.setText(tomorrow);
 
-        mainActivityMultiLineRadioGroup.setOnCheckedChangeListener(new MultiLineRadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(ViewGroup group, RadioButton button) {
-                payment_mode=button.getText().toString();
-            }
-        });
 
         user = session.getUserDetails();
 
@@ -150,189 +137,95 @@ public class CheckoutActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean validateFields(View view) {
 
-        if (ordername.getText().toString().length() == 0 || orderemail.getText().toString().length() == 0 || ordernumber.getText().toString().length() == 0 || orderaddress.getText().toString().length() == 0 ||
-                orderpincode.getText().toString().length() == 0) {
-            Snackbar.make(view, "Kindly Fill all the fields", Snackbar.LENGTH_SHORT)
-                    .setAction("Action", null).show();
-            return false;
-        } else if (orderemail.getText().toString().length() < 4 || orderemail.getText().toString().length() > 30) {
-            orderemail.setError("Email Must consist of 4 to 30 characters");
-            return false;
-        } else if (!orderemail.getText().toString().matches("^[A-za-z0-9.@]+")) {
-            orderemail.setError("Only . and @ characters allowed");
-            return false;
-        } else if (!orderemail.getText().toString().contains("@") || !orderemail.getText().toString().contains(".")) {
-            orderemail.setError("Email must contain @ and .");
-            return false;
-        } else if (ordernumber.getText().toString().length() < 4 || ordernumber.getText().toString().length() > 12) {
-            ordernumber.setError("Number Must consist of 10 characters");
-            return false;
-        } else if (orderpincode.getText().toString().length() < 6 || orderpincode.getText().toString().length() > 8){
-            orderpincode.setError("Pincode must be of 6 digits");
-            return false;
-        }
-
-        return true;
-    }
 
     public void PlaceOrder(View view) {
 
-
-        if (validateFields(view)) {
-            order_reference_id = "ORD-"+getRandomString(MAXLEN)+"-Beta";
+            order_reference_id = "ORD-" + getRandomString(MAXLEN) + "-Beta";
             orderDateTime = new SimpleDateFormat("dd.MMM.yyyy-HH.mm.ss").format(new Date());
 
-            for(SingleProductModel singleProductModel : cartcollect){
+            for (SingleProductModel singleProductModel : cartcollect) {
                 placed_order_images.add(singleProductModel.getPrimage());
             }
 
-            if(payment_mode.equals("COD")) {
-                final KProgressHUD progressDialog = KProgressHUD.create(CheckoutActivity.this)
-                        .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                        .setLabel("Placing Order. Please Wait...")
-                        .setCancellable(false)
-                        .setAnimationSpeed(2)
-                        .setDimAmount(0.5f)
-                        .show();
+            final KProgressHUD progressDialog = KProgressHUD.create(CheckoutActivity.this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setLabel("Placing Order. Please Wait...")
+                    .setCancellable(false)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
+                    .show();
 
 
-
-                //adding user details to the database under orders table
-                firebaseFirestore.collection("Orders").document(getPlaced_user_email)
-                        .collection(user.get(UserSession.KEY_NAME)+" Orders").document(currdatetime)
-                        .set(getProductObject()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-
-                        for (final SingleProductModel model : cartcollect) {
-
-                            firebaseFirestore.collection("Orders").document(getPlaced_user_email)
-                                    .collection(user.get(UserSession.KEY_NAME)+" Orders")
-                                    .document(currdatetime).collection("Items").add(model).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "Model Added: " + model.getPrname());
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    progressDialog.dismiss();
-                                    Toasty.warning(CheckoutActivity.this, "Server down! Please contact Administrator.", 2000).show();
-                                    Log.d(TAG, "Error: " + e.getMessage());
-                                }
-                            });
-                        }
-
-                        for (final SingleProductModel model : cartcollect) {
-                            firebaseFirestore.collection("Cart").document(getPlaced_user_email)
-                                    .collection(user.get(UserSession.KEY_NAME) + " Cart").document(String.valueOf(model.getPrid()))
-                                    .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "Model: " + model.getPrname() + " Deleted");
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, "Deleting Error: " + e.getMessage());
-                                }
-                            });
-
-
-                        }
-                        session.setCartValue(0);
-                        progressDialog.dismiss();
-
-
-                        Toasty.success(CheckoutActivity.this, "Order Placed Successfully", 2000).show();
-                        Intent intent = new Intent(CheckoutActivity.this, OrderPlacedActivity.class);
-                        intent.putExtra("orderid", order_reference_id);
-                        intent.putExtra("custid",mAuth.getCurrentUser().getUid());
-                        intent.putExtra("amount_to_pay",bundle.get("totalprice").toString());
-                        startActivity(intent);
-                        finish();
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toasty.warning(CheckoutActivity.this, "Server down! Please contact Administrator.", 2000).show();
-                        Log.d(TAG, "Placed Order Model Error: " + e.getMessage());
-                    }
-                });
-
-
-            }else if(payment_mode.equals("Paytm")) {
-                //Toast.makeText(this, "Feature to be added soon!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CheckoutActivity.this, PaymentActivity.class);
-                intent.putExtra("orderid", order_reference_id);
-                intent.putExtra("custid",mAuth.getCurrentUser().getUid());
-                intent.putExtra("amount_to_pay",bundle.get("totalprice").toString());
-                intent.putExtra("PlacedOrderModel",getProductObject());
-                intent.putExtra("currdatetime",currdatetime);
-                Bundle args = new Bundle();
-                args.putSerializable("cartcollect",(Serializable) cartcollect);
-                intent.putExtra("BUNDLE",args);
-                startActivity(intent);
-                finish();
-
-            } else {
-                //Toast.makeText(this, "Feature to be added soon!", Toast.LENGTH_SHORT).show();
-            }
-
-                    /*.addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            //adding user details to the database under orders table
+            firebaseFirestore.collection("Orders").document(getPlaced_user_email)
+                    .collection(user.get(UserSession.KEY_NAME) + " Orders").document(currdatetime)
+                    .set(getProductObject()).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
-                public void onSuccess(DocumentReference documentReference) {
-                    Log.d(TAG,"Placed Order Model Added Successfully");
+                public void onSuccess(Void aVoid) {
 
-                    for(final SingleProductModel model:cartcollect){
-                        //mDatabaseReference.child("orders").child(getPlaced_user_mobile_no).child(currdatetime).child("items").push().setValue(model);
+                    for (final SingleProductModel model : cartcollect) {
 
-                        firebaseFirestore.collection("Orders").document(getPlaced_user_mobile_no).collection(currdatetime)
-                                .document("items").set(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        firebaseFirestore.collection("Orders").document(getPlaced_user_email)
+                                .collection(user.get(UserSession.KEY_NAME) + " Orders")
+                                .document(currdatetime).collection("Items").add(model).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG,"Model Added: "+model.getPrname());
-
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d(TAG, "Model Added: " + model.getPrname());
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.d(TAG,"Error: "+e.getMessage());
+                                progressDialog.dismiss();
+                                Toasty.warning(CheckoutActivity.this, "Server down! Please contact Administrator.", 2000).show();
+                                Log.d(TAG, "Error: " + e.getMessage());
+                            }
+                        });
+                    }
 
+                    for (final SingleProductModel model : cartcollect) {
+                        firebaseFirestore.collection("Cart").document(getPlaced_user_email)
+                                .collection(user.get(UserSession.KEY_NAME) + " Cart").document(String.valueOf(model.getPrid()))
+                                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "Model: " + model.getPrname() + " Deleted");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "Deleting Error: " + e.getMessage());
                             }
                         });
 
+
                     }
+                    session.setCartValue(0);
+                    progressDialog.dismiss();
+
+
+                    Toasty.success(CheckoutActivity.this, "Order Placed Successfully", 2000).show();
+                    Intent intent = new Intent(CheckoutActivity.this, OrderPlacedActivity.class);
+                    intent.putExtra("orderid", order_reference_id);
+                    intent.putExtra("custid", mAuth.getCurrentUser().getUid());
+                    intent.putExtra("amount_to_pay", bundle.get("totalprice").toString());
+                    startActivity(intent);
+                    finish();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG,"Placed Order Model Error: "+e.getMessage());
+                    progressDialog.dismiss();
+                    Toasty.warning(CheckoutActivity.this, "Server down! Please contact Administrator.", 2000).show();
+                    Log.d(TAG, "Placed Order Model Error: " + e.getMessage());
                 }
-            });*/
+            });
 
 
-            //mDatabaseReference.child("orders").child(getPlaced_user_mobile_no).child(currdatetime).push().setValue(getProductObject());
-
-            //adding products to the order
-            //for(SingleProductModel model:cartcollect){
-              //  mDatabaseReference.child("orders").child(getPlaced_user_mobile_no).child(currdatetime).child("items").push().setValue(model);
-            //}
-
-            //mDatabaseReference.child("cart").child(getPlaced_user_mobile_no).removeValue();
-            //session.setCartValue(0);
-
-            //Intent intent = new Intent(OrderDetails.this, OrderPlaced.class);
-            //intent.putExtra("orderid",order_reference_id);
-            //startActivity(intent);
-            //finish();
         }
-    }
+
+
 
 
     public String getordernumber() {
@@ -341,7 +234,11 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     public PlacedOrderModel getProductObject() {
-        return new PlacedOrderModel(placed_order_images,"ORDER_PLACED",order_reference_id,orderDateTime,noOfItems.getText().toString(),totalAmount.getText().toString(),deliveryDate.getText().toString(),payment_mode,ordername.getText().toString(),orderemail.getText().toString(),ordernumber.getText().toString(),orderaddress.getText().toString(),orderpincode.getText().toString(),placed_user_name,getPlaced_user_email,getPlaced_user_mobile_no);
+        return new PlacedOrderModel(placed_order_images,"ORDER_PLACED",order_reference_id,orderDateTime,noOfItems.getText().toString(),totalAmount.getText().toString(),deliveryDate.getText().toString(),payment_mode,orderaddress.getText().toString(),orderpincode.getText().toString(),placed_user_name,getPlaced_user_email,getPlaced_user_mobile_no);
+    }
+    public void connectToPaypal(){
+        Toasty.success(CheckoutActivity.this, "Connected To Your Paypal! - " + getPlaced_user_email, 2000).show();
+
     }
 
     private static String getRandomString(final int sizeOfRandomString)

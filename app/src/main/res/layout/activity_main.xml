@@ -98,29 +98,27 @@
                 android:layout_height="wrap_content"
                 android:weightSum="10">
 
+
                 <androidx.cardview.widget.CardView
-                    android:onClick="shoesActivity"
                     style="@style/homegridcard"
-                    card_view:cardCornerRadius="@dimen/card_album_radius">
+                    card_view:cardCornerRadius="@dimen/card_album_radius"
+                    android:onClick="shoesActivity">
 
                     <RelativeLayout
-                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <ImageView
-                            android:id="@+id/visitingcards"
+                            android:id="@+id/shoes"
                             style="@style/homegridimage"
                             android:src="@drawable/shoe_icon" />
 
                         <TextView
-                            style="@style/homegridtext"
-                            android:layout_below="@id/visitingcards"
-                            android:text="Shoes" />
+                            android:layout_below="@id/shoes"
+                            android:text="Shoes"
+                            style="@style/homegridtext"/>
 
                     </RelativeLayout>
-
-
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -156,7 +154,7 @@
                 <androidx.cardview.widget.CardView
                     style="@style/homegridcard"
                     card_view:cardCornerRadius="@dimen/card_album_radius"
-                    android:onClick="bagsActivity">
+                    android:onClick="pantsActivity">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -169,7 +167,7 @@
 
                         <TextView
                             android:layout_below="@id/bags"
-                            android:text="Bags"
+                            android:text="Panst"
                             style="@style/homegridtext"/>
 
                     </RelativeLayout>
@@ -179,7 +177,7 @@
                 <androidx.cardview.widget.CardView
                     style="@style/homegridcard"
                     card_view:cardCornerRadius="@dimen/card_album_radius"
-                    android:onClick="stationaryAcitivity">
+                    android:onClick="sweatersActivity">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -192,7 +190,7 @@
 
                         <TextView
                             android:layout_below="@id/Stationary"
-                            android:text="Sunglasses"
+                            android:text="Sweaters"
                             style="@style/homegridtext"/>
 
                     </RelativeLayout>
@@ -209,7 +207,7 @@
                 <androidx.cardview.widget.CardView
                     style="@style/homegridcard"
                     card_view:cardCornerRadius="@dimen/card_album_radius"
-                    android:onClick="calendarsActivity">
+                    android:onClick="shirtsActivity">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -222,7 +220,7 @@
 
                         <TextView
                             android:layout_below="@id/calendars"
-                            android:text="Smartphones"
+                            android:text="Shirts"
                             style="@style/homegridtext"/>
 
                     </RelativeLayout>
@@ -231,7 +229,7 @@
                 <androidx.cardview.widget.CardView
                     style="@style/homegridcard"
                     card_view:cardCornerRadius="@dimen/card_album_radius"
-                    android:onClick="keychainsActivity">
+                    android:onClick="sportAttireActivity">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -244,7 +242,7 @@
 
                         <TextView
                             android:layout_below="@id/keychain"
-                            android:text="Laptops"
+                            android:text="Sport Attire"
                             style="@style/homegridtext"/>
 
                     </RelativeLayout>

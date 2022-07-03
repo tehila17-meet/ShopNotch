@@ -32,12 +32,16 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-public class ShoesActivity extends AppCompatActivity {
+public class SweatersActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mLayoutManager;
     private LottieAnimationView no_products_icon;
     private UserSession session;
+
+    private final String TAG = this.getClass().getSimpleName()+"_xlr8";
+
+    //Getting reference to Firebase Database
     private FirebaseFirestore firebaseFirestore;
     private FirestoreRecyclerAdapter adapter;
 
@@ -45,7 +49,7 @@ public class ShoesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shoes);
+        setContentView(R.layout.activity_sweaters);
 
         FirebaseApp.initializeApp(this);
         session = new UserSession(getApplicationContext());
@@ -60,27 +64,27 @@ public class ShoesActivity extends AppCompatActivity {
 
         new CheckInternetConnection(this).checkConnection();
 
-        mRecyclerView = findViewById(R.id.shoes_recycler);
+        mRecyclerView = findViewById(R.id.sweater_recycler);
         no_products_icon = findViewById(R.id.no_products_icon);
         no_products_icon.setVisibility(View.GONE);
 
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        Query query = firebaseFirestore.collection("/Shoes");
+        Query query = firebaseFirestore.collection("/Sweaters");
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                 if(task.isSuccessful()){
-                    if(task.getResult().size()==0){
-                        no_products_icon.setVisibility(View.VISIBLE);
-                    }
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d("Document Data", document.getId() + " => " + document.getData());
+                        if(task.getResult().size()==0){
+                            no_products_icon.setVisibility(View.VISIBLE);
+                        }
+                        Log.d(TAG, document.getId() + " => " + document.getData());
                     }
                 } else {
-                    Log.d("Document Error", "Error getting documents.", task.getException());
+                    Log.d(TAG, "Error getting documents.", task.getException());
                 }
 
             }
@@ -90,7 +94,7 @@ public class ShoesActivity extends AppCompatActivity {
                 .setQuery(query, GenericProductModel.class)
                 .build();
 
-         adapter = new FirestoreRecyclerAdapter<GenericProductModel, ProductView>(response) {
+        adapter = new FirestoreRecyclerAdapter<GenericProductModel, ProductView>(response) {
             @Override
             protected void onBindViewHolder(@NonNull ProductView viewHolder, final int position, @NonNull GenericProductModel model) {
 
@@ -100,7 +104,7 @@ public class ShoesActivity extends AppCompatActivity {
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(ShoesActivity.this, IndividualProductActivity.class);
+                        Intent intent = new Intent(SweatersActivity.this, IndividualProductActivity.class);
                         intent.putExtra("product",getItem(position));
                         startActivity(intent);
                     }
@@ -123,11 +127,12 @@ public class ShoesActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(adapter);
         adapter.startListening();
 
+
     }
 
 
     public void viewCart(View view) {
-        startActivity(new Intent(ShoesActivity.this, CartActivity.class));
+        startActivity(new Intent(SweatersActivity.this, CartActivity.class));
         finish();
     }
 
@@ -149,12 +154,14 @@ public class ShoesActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d(TAG,"Adapter Listening");
         adapter.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        Log.d(TAG,"Adapter Not  Listening");
         adapter.stopListening();
     }
 

@@ -4,20 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
-import com.example.shopnotch.Activities.ShoppingActivities.CartActivity;
 import com.example.shopnotch.ObjectBlueprints.GenericProductModel;
 import com.example.shopnotch.ObjectBlueprints.SingleProductModel;
 import com.example.shopnotch.Utilities.GeneralUtils.CheckInternetConnection;
@@ -25,7 +20,6 @@ import com.example.shopnotch.R;
 import com.example.shopnotch.UserSession.UserSession;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.squareup.picasso.Picasso;
@@ -44,16 +38,11 @@ public class IndividualProductActivity extends AppCompatActivity {
     TextView productprice;
     @BindView(R.id.add_to_cart)
     TextView addToCart;
-    @BindView(R.id.buy_now)
-    TextView buyNow;
     @BindView(R.id.productdesc)
     TextView productdesc;
     @BindView(R.id.quantityProductPage)
     EditText quantityProductPage;
-    @BindView(R.id.customheader)
-    EditText customheader;
-    @BindView(R.id.custommessage)
-    EditText custommessage;
+
 
 
 
@@ -101,7 +90,7 @@ public class IndividualProductActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         model = (GenericProductModel) getIntent().getSerializableExtra("product");
 
-        productprice.setText("₹ " + Float.toString(model.getCardprice()));
+        productprice.setText("$ " + Float.toString(model.getCardprice()));
         productname.setText(model.getCardname());
         quantityProductPage.setText("1");
         Picasso.get().load(model.getCardimage()).into(productimage);
@@ -114,9 +103,6 @@ public class IndividualProductActivity extends AppCompatActivity {
         usermobile = session.getUserDetails().get(UserSession.KEY_MOBiLE);
         useremail = session.getUserDetails().get(UserSession.KEY_EMAIL);
         username = session.getUserDetails().get(UserSession.KEY_NAME);
-
-
-
 
         //setting textwatcher for no of items field
         quantityProductPage.addTextChangedListener(productcount);
@@ -173,38 +159,13 @@ public class IndividualProductActivity extends AppCompatActivity {
         }
     }
 
-    public void shareProduct(View view) {
-
-        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        String shareBody = "Found amazing " + productname.getText().toString() + "on Mini Bazaar App";
-        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-        startActivity(Intent.createChooser(sharingIntent, "Share via"));
-    }
-
-    public void similarProduct(View view) {
-        finish();
-    }
 
     private SingleProductModel getProductObject() {
 
-        return new SingleProductModel(model.getCardid(), Integer.parseInt(quantityProductPage.getText().toString()), useremail, usermobile, model.getCardname(), Float.toString(model.getCardprice()), model.getCardimage() ,customheader.getText().toString(),custommessage.getText().toString());
+        return new SingleProductModel(model.getCardid(), Integer.parseInt(quantityProductPage.getText().toString()), useremail, usermobile, model.getCardname(), Float.toString(model.getCardprice()), model.getCardimage());
 
     }
 
-    public void goToCart(View view) {
-
-        if ( customheader.getText().toString().length() == 0 ||  custommessage.getText().toString().length() ==0 ){
-
-            Snackbar.make(view, "Header or Message Empty", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }else {
-            addToCartProcess(false);
-            startActivity(new Intent(IndividualProductActivity.this, CartActivity.class));
-            finish();
-        }
-
-    }
 
     private void addToCartProcess(final boolean addToCart){
         final KProgressHUD progressDialog=  KProgressHUD.create(IndividualProductActivity.this)
@@ -235,17 +196,11 @@ public class IndividualProductActivity extends AppCompatActivity {
         });
 
     }
+    public void connectToPayPal(){
+        Toasty.success(IndividualProductActivity.this, "Connected To Paypal: " + useremail, 3000).show();
 
+    }
     public void addToCart(View view) {
-
-        if ( customheader.getText().toString().length() == 0 ||  custommessage.getText().toString().length() ==0 ){
-
-            Snackbar.make(view, "Header or Message Empty", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        } else {
-
-            addToCartProcess(true);
-
-        }
+        addToCartProcess(true);
     }
 }

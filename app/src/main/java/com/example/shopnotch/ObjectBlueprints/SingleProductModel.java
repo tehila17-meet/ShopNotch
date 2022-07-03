@@ -5,10 +5,10 @@ import java.io.Serializable;
 public class SingleProductModel implements Serializable {
 
     private int prid,no_of_items;
-    private String useremail,usermobile,prname,prprice,primage,prdesc,message_header,message_body;
+    private String useremail,usermobile,prname,prprice,primage,prdesc;
 
 
-    public SingleProductModel(int prid, int no_of_items, String useremail, String usermobile, String prname, String prprice, String primage, String message_header, String message_body) {
+    public SingleProductModel(int prid, int no_of_items, String useremail, String usermobile, String prname, String prprice, String primage) {
         this.prid = prid;
         this.no_of_items = no_of_items;
         this.useremail = useremail;
@@ -16,24 +16,10 @@ public class SingleProductModel implements Serializable {
         this.prname = prname;
         this.prprice = prprice;
         this.primage = primage;
-        this.message_header = message_header;
-        this.message_body = message_body;
-    }
 
-    public String getMessage_header() {
-        return message_header;
     }
+    public SingleProductModel(){
 
-    public void setMessage_header(String message_header) {
-        this.message_header = message_header;
-    }
-
-    public String getMessage_body() {
-        return message_body;
-    }
-
-    public void setMessage_body(String message_body) {
-        this.message_body = message_body;
     }
 
     public String getUsermobile() {

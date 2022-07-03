@@ -8,7 +8,6 @@ import androidx.core.view.GravityCompat;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -17,10 +16,14 @@ import android.widget.Toast;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.shopnotch.Activities.ShoppingActivities.CartActivity;
-import com.example.shopnotch.Activities.ShoppingActivities.OrderHistoryActivity;
 import com.example.shopnotch.Activities.UserActivities.ProfileActivity;
 import com.example.shopnotch.Utilities.GeneralUtils.CheckInternetConnection;
 import com.example.shopnotch.Activities.ClothingProductsActivities.ShoesActivity;
+import com.example.shopnotch.Activities.ClothingProductsActivities.ShirtsActivity;
+import com.example.shopnotch.Activities.ClothingProductsActivities.SweatersActivity;
+import com.example.shopnotch.Activities.ClothingProductsActivities.TshirtActivity;
+import com.example.shopnotch.Activities.ClothingProductsActivities.PantsActivity;
+import com.example.shopnotch.Activities.ClothingProductsActivities.SportAttireActivity;
 import com.example.shopnotch.R;
 import com.example.shopnotch.UserSession.UserSession;
 import com.google.firebase.FirebaseApp;
@@ -34,7 +37,6 @@ import com.mikepenz.materialdrawer.interfaces.ICrossfader;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
@@ -78,53 +80,44 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        IProfile profile = new ProfileDrawerItem()
-                .withName(name)
-                .withEmail(email);
-
-        AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.gradient_background)
-                .addProfiles(profile)
-                .withCompactStyle(true)
-                .build();
+//        IProfile profile = new ProfileDrawerItem()
+//                .withName(name)
+//                .withEmail(email);
+//
+//        AccountHeader headerResult = new AccountHeaderBuilder()
+//                .withActivity(this)
+//                .withHeaderBackground(R.drawable.gradient_background)
+//                .addProfiles(profile)
+//                .withCompactStyle(true)
+//                .build();
 
         //Adding nav drawer items ------------------------------------------------------------------
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.home).withIcon(R.drawable.home);
         PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName(R.string.cart).withIcon(R.drawable.cart);
-        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName(R.string.order_history).withIcon(R.drawable.order_hist_icon);
-
-        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(4).withName(R.string.myprofile).withIcon(R.drawable.profile);
-        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5).withName(R.string.logout).withIcon(R.drawable.logout);
+        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName(R.string.myprofile).withIcon(R.drawable.profile);
+        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName(R.string.logout).withIcon(R.drawable.logout);
 
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withHasStableIds(true)
                 .withDrawerLayout(R.layout.crossfade_drawer)
-                .withAccountHeader(headerResult)
                 .withDrawerWidthDp(72)
                 .withGenerateMiniDrawer(true)
                 .withTranslucentStatusBar(true)
                 .withActionBarDrawerToggleAnimated(true)
-                .addDrawerItems(item1,item2,item3, new DividerDrawerItem(), item4, item5,new DividerDrawerItem()).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                .addDrawerItems(item1,item2,item3,item4, new DividerDrawerItem()).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         switch (position){
-                            case 0:
+                            case 1:
                                 if (result != null && result.isDrawerOpen()) {
                                     result.closeDrawer();
                                 }
                                 break;
 
-                            case 1:
-                                startActivity(new Intent(MainActivity.this, CartActivity.class));
-                                result.closeDrawer();
-                                break;
-
-
                             case 2:
-                                startActivity(new Intent(MainActivity.this, OrderHistoryActivity.class));
+                                startActivity(new Intent(MainActivity.this, CartActivity.class));
                                 result.closeDrawer();
                                 break;
 
@@ -211,26 +204,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tshirtActivity(View view) {
-        //startActivity(new Intent(MainActivity.this, TshirtActivity.class));
+        startActivity(new Intent(MainActivity.this, TshirtActivity.class));
     }
 
     public void pantsActivity(View view) {
 
-        //startActivity(new Intent(MainActivity.this, PantsActivity.class));
+        startActivity(new Intent(MainActivity.this, PantsActivity.class));
     }
 
-    public void hoodiesActivity(View view) {
+    public void sweatersActivity(View view) {
 
-        //startActivity(new Intent(MainActivity.this, HoodiesActivity.class));
+        startActivity(new Intent(MainActivity.this, SweatersActivity.class));
     }
 
     public void sportAttireActivity(View view) {
 
-        //startActivity(new Intent(MainActivity.this, SportAttireActivity.class));
+        startActivity(new Intent(MainActivity.this, SportAttireActivity.class));
     }
 
     public void shirtsActivity(View view) {
 
-        //startActivity(new Intent(MainActivity.this, ShirtsActivity.class));
+        startActivity(new Intent(MainActivity.this, ShirtsActivity.class));
     }
 }

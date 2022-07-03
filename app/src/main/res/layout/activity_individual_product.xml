@@ -70,7 +70,7 @@
                     android:id="@+id/productname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Denim Shirt"
+                    android:text="Default Product Name"
                     android:textSize="16dp"
                     android:textColor="@color/gen_black"/>
                 <TextView
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Rs. 1,979"
+                    android:text="Deafult Price"
                     android:textSize="20dp"
                     android:textColor="@color/gen_black"
                     />
@@ -135,120 +135,6 @@
 
             </LinearLayout>
 
-            <View android:layout_width="match_parent"
-                android:layout_height="@dimen/view_width_small"
-                android:background="@color/grey_light"
-                android:layout_marginTop="8dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp"
-                android:weightSum="3">
-
-                <LinearLayout android:id="@+id/layout_action1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:onClick="shareProduct">
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/share"/>
-                    <TextView android:id="@+id/text_action1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="8dp"
-                        android:text="Share"
-                        android:textSize="12dp"
-                        android:textColor="@color/gen_black"
-                        android:gravity="left"/>
-                </LinearLayout>
-
-                <View android:layout_width="@dimen/view_width_small"
-                    android:layout_height="match_parent"
-                    android:background="@color/grey_light"/>
-
-                <LinearLayout android:id="@+id/layout_action2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:onClick="similarProduct">
-                    <ImageView android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/similar"/>
-                    <TextView android:id="@+id/text_action2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="8dp"
-                        android:text="Similar"
-                        android:textSize="12dp"
-                        android:textColor="@color/gen_black"
-                        android:gravity="left"/>
-                </LinearLayout>
-
-                <View android:layout_width="@dimen/view_width_small"
-                    android:layout_height="match_parent"
-                    android:background="@color/grey_light"/>
-
-                <LinearLayout
-                    android:id="@+id/layout_action3"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    >
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.airbnb.lottie.LottieAnimationView
-                            android:id="@+id/add_to_wishlist"
-                            android:layout_width="40dp"
-                            app:lottie_fileName="heart.json"
-                            android:layout_height="40dp"
-                            android:foregroundGravity="center"
-                            android:src="@drawable/cartempty"
-                            android:visibility="visible"/>
-
-                        <ImageButton
-                            android:id="@+id/wishlist_red"
-                            android:visibility="gone"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:scaleType="fitCenter"
-                            android:background="@null"
-                            android:src="@drawable/red_heart_icon"/>
-
-
-                    </RelativeLayout>
-
-
-
-                    <TextView android:id="@+id/text_action3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="8dp"
-                        android:text="Wishlist"
-                        android:textSize="12dp"
-                        android:textColor="@color/gen_black"
-                        android:gravity="left"/>
-                </LinearLayout>
-
-            </LinearLayout>
 
 
             <View android:layout_width="match_parent"
@@ -272,73 +158,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="\u2022 Regular fit, full sleeve"
+                    android:text="\u2022 Default Description"
                     android:textSize="12dp"
                     android:textColor="@color/gen_black"/>
 
             </LinearLayout>
-
-            <View android:layout_width="match_parent"
-                android:layout_height="@dimen/view_width_small"
-                android:background="@color/grey_light"
-                android:layout_marginTop="2dp"/>
-
-            <TextView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Your Custom Message"
-                android:textSize="16dp"
-                android:textColor="@color/gen_black"
-                android:layout_margin="10dp"/>
-
-            <View android:layout_width="match_parent"
-                android:layout_height="@dimen/view_width_small"
-                android:background="@color/grey_light"
-                android:layout_marginTop="2dp"/>
-
-            <com.github.florent37.materialtextfield.MaterialTextField
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:mtf_labelColor="#34495e"
-                app:mtf_image="@drawable/headertext"
-                >
-
-                <EditText
-                    android:id="@+id/customheader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Header"
-                    android:textColor="#424242"
-                    android:textSize="15sp"
-                    android:inputType="textMultiLine"
-                    android:maxLines="3"
-                    android:minLines="2"
-                    android:scrollbars="vertical"/>
-
-            </com.github.florent37.materialtextfield.MaterialTextField>
-
-            <com.github.florent37.materialtextfield.MaterialTextField
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:mtf_labelColor="#34495e"
-                app:mtf_image="@drawable/bubble"
-                android:layout_marginBottom="30dp"
-                >
-
-                <EditText
-                    android:id="@+id/custommessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Content"
-                    android:textColor="#424242"
-                    android:textSize="15sp"
-                    android:inputType="textMultiLine"
-                    android:maxLines="10"
-                    android:minLines="6"
-                    android:scrollbars="vertical"
-                    />
-
-            </com.github.florent37.materialtextfield.MaterialTextField>
-
 
 
         </LinearLayout>
@@ -368,19 +192,6 @@
             android:textStyle="bold"
             android:gravity="center"
             android:onClick="addToCart"/>
-
-        <TextView
-            android:id="@+id/buy_now"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="BUY NOW"
-            android:textSize="14dp"
-            android:textColor="@color/gen_white"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:onClick="goToCart"/>
 
     </LinearLayout>
 

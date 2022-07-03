@@ -9,11 +9,15 @@ public class GenericProductModel implements Serializable {
     public String modelimage1;
     public float modelprice;
 
-    public GenericProductModel(int modelint, String modelname, String modelimage1, float modelprice) {
-        this.modelid = modelid;
+    public GenericProductModel(int modelid, String modelname, String modelimage1, float modelprice) {
+        this.modelid = 1;
         this.modelname = modelname;
         this.modelimage1 = modelimage1;
         this.modelprice = modelprice;
+    }
+
+    public GenericProductModel(){
+
     }
 
     public String getCardname() {

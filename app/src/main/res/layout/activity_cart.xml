@@ -35,8 +35,6 @@
                 android:layout_height="wrap_content">
 
 
-
-
                 <ImageView
                     android:id="@+id/view_profile"
                     android:layout_width="20dp"

@@ -16,12 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity">
-        <activity
-            android:name=".Activities.ShoppingActivities.OrderTrackActivity"
-            android:theme="@style/OriginalThemeNoActionBar"></activity>
-        <activity
-            android:name=".Activities.ShoppingActivities.OrderHistoryActivity"
-            android:theme="@style/OriginalThemeNoActionBar" />
+
         <activity
             android:name=".Activities.ShoppingActivities.PaymentActivity"
             android:theme="@style/OriginalThemeNoActionBar" />
@@ -45,9 +40,38 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
+            android:name=".Activities.ClothingProductsActivities.SportAttireActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OriginalThemeNoActionBar" />
+        <activity
             android:name=".Activities.ClothingProductsActivities.ShoesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/OriginalThemeNoActionBar" />
+
+        <activity
+            android:name=".Activities.ClothingProductsActivities.SweatersActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OriginalThemeNoActionBar" />
+
+        <activity
+            android:name=".Activities.ClothingProductsActivities.ShirtsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OriginalThemeNoActionBar" />
+
+        <activity
+            android:name=".Activities.ClothingProductsActivities.TshirtActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OriginalThemeNoActionBar" />
+
+        <activity
+            android:name=".Activities.ClothingProductsActivities.PantsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OriginalThemeNoActionBar" />
+
+        <activity
+        android:name=".Activities.ClothingProductsActivities.IndividualProductActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/OriginalThemeNoActionBar" />
         <activity
             android:name=".Activities.UserActivities.ProfileActivity"
             android:theme="@style/OriginalThemeNoActionBar" />

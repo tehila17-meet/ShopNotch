@@ -12,7 +12,7 @@ public class PlacedOrderModel implements Serializable {
 
     public PlacedOrderModel(){}
 
-    public PlacedOrderModel(ArrayList<String> placed_order_images,String order_status,String orderid,String order_date_time, String no_of_items, String total_amount, String delivery_date, String payment_mode, String deleiveryname, String deliveryemail, String deliverymobile_no, String deliveryaddress, String deliverypincode, String placed_user_name, String getPlaced_user_email, String getPlaced_user_mobile_no) {
+    public PlacedOrderModel(ArrayList<String> placed_order_images,String order_status,String orderid,String order_date_time, String no_of_items, String total_amount, String delivery_date, String payment_mode, String deliveryaddress, String deliverypincode, String placed_user_name, String getPlaced_user_email, String getPlaced_user_mobile_no) {
 
         this.placed_order_images = placed_order_images;
         this.order_status = order_status;
@@ -21,9 +21,6 @@ public class PlacedOrderModel implements Serializable {
         this.total_amount = total_amount;
         this.delivery_date = delivery_date;
         this.payment_mode = payment_mode;
-        this.deleiveryname = deleiveryname;
-        this.deliveryemail = deliveryemail;
-        this.deliverymobile_no = deliverymobile_no;
         this.deliveryaddress = deliveryaddress;
         this.deliverypincode = deliverypincode;
         this.placed_user_name = placed_user_name;
