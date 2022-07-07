@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="slogans">
+        <item>Quality Shirts!</item>
+        <item>Shop Notch With Us</item>
+        <item>Real Denim Jeans</item>
+        <item>50% off all hoodies</item>
+    </string-array>
+</resources>

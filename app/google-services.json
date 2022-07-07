@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "621746004819",
+    "project_id": "shopnotch-1d575",
+    "storage_bucket": "shopnotch-1d575.appspot.com"
+  },
+  "client": [
+    {
+
+      "client_info": {
+        "mobilesdk_app_id": "1:621746004819:android:9ef9a7d462eb6277a737a6",
+        "android_client_info": {
+          "package_name": "com.example.shopnotch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "621746004819-gsh2r7v4k109mlq42h1ssugogonaiobc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8kw3XTENhLdUzu_J5n_wLgDsSBCgkLmQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "621746004819-gsh2r7v4k109mlq42h1ssugogonaiobc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+
+  ],
+  "configuration_version": "1"
+}
