@@ -17,8 +17,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import es.dmoral.toasty.Toasty;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-    EditText email = findViewById(R.id.email);
-
+    EditText edtemail = findViewById(R.id.email);
+    String email = edtemail.getText().toString();
 
 
     @Override

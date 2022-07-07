@@ -86,33 +86,16 @@ public class LoginActivity extends AppCompatActivity {
                                     Toasty.error(LoginActivity.this,"Email Not Verified.",2000).show();
                                 } else {
                                     userID = mAuth.getCurrentUser().getUid();
-                                    firebaseFirestore.collection("Users").document(userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            if (!task.isSuccessful()) {
-                                                if (task.getResult().exists()) {
-                                                    String sessionname = task.getResult().getString("name");
-                                                    String sessionmobile = task.getResult().getString("number");
-                                                    String sessionemail = task.getResult().getString("email");
-                                                    session.createLoginSession(sessionname,sessionemail,sessionmobile);
+                                    session.createLoginSession(userID,email,"0");
 
+                                    progressDialog.dismiss();
 
-                                                    progressDialog.dismiss();
+                                    Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(loginSuccess);
+                                    finish();
 
-                                                    Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
-                                                    startActivity(loginSuccess);
-                                                    finish();
-                                                }
-                                            } else {
-                                                Log.w( "_ERR", "signInWithEmailAndPWD:failure", task.getException());
-
-                                                progressDialog.dismiss();
-                                                Toast.makeText(LoginActivity.this, "Login Error. Please try again.", Toast.LENGTH_SHORT).show();
-                                            }
-
-                                        }
-                                    });
                                 }
+
                             } else {
                                 progressDialog.dismiss();
                                 Toasty.error(LoginActivity.this,"Couldn't Log In. Please check your Email/Password",2000).show();

@@ -103,44 +103,36 @@ public class RegisterActivity extends AppCompatActivity {
                                 .setDimAmount(0.5f)
                                 .show();
 
-                        Log.d(TAG + "_TXN", "1. CREATING ACCOUNT");
                         mAuth.createUserWithEmailAndPassword(email, password)
                                 .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
-                                            Log.d(TAG + "_TXN", "2. ACCOUNT CREATED");
 
-                                            Log.d(TAG + "_SS", "createUserWithEmail:success");
                                             user = mAuth.getCurrentUser();
                                             userId = mAuth.getCurrentUser().getUid();
-                                            Log.d(TAG + "_UID", userId);
-                                            Log.d(TAG + "_TXN", "3. SENDING VERIFICATION EMAIL");
                                             user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     progressDialog.dismiss();
                                                     if (task.isSuccessful()) {
-                                                        Log.d(TAG + "_TXN", "11. EMAIL SENT");
                                                         Toasty.success(RegisterActivity.this, "We've sent a verification link to your email.", Toast.LENGTH_SHORT, true).show();
                                                     }
                                                 }
                                             });
-                                            Log.d(TAG + "_LOGIN", "4. REDIRECTING TO LOGIN");
+
 
                                             startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                                             finish();
 
                                         } else {
                                             progressDialog.dismiss();
-                                            Log.w(TAG + "_ERR", "createUserWithEmail:failure", task.getException());
                                             Toasty.error(RegisterActivity.this, "Failed to Register", Toast.LENGTH_LONG, true).show();
                                         }
                                     }
                                 });
 
                     } catch (Exception e) {
-                        Log.w(TAG + "_ERR", "Error: " + e.getMessage());
                         Toasty.error(RegisterActivity.this, "Failed to Register", Toast.LENGTH_LONG, true).show();
 
                     }
