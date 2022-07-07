@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="examples">
-        <item>Shirts</item>
-        <item>Sport Attire</item>
-        <item>Shoes</item>
-        <item>Jeans</item>
-        <item>Hoodies</item>
-        <item>Everything</item>
-    </string-array>
-
-    <string-array name="radio_buttons">
-        <item>PayPal</item>
-        <item>Paytm</item>
-        <item>COD</item>
+    <string-array name="slogans">
+        <item>Quality Shirts!</item>
+        <item>Shop Notch With Us</item>
+        <item>Real Denim Jeans</item>
+        <item>50% off all hoodies</item>
     </string-array>
 </resources>

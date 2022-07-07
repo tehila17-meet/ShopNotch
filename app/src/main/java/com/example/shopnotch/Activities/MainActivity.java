@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private String name, email, mobile;
     private ImageSlider imageSlider;
     private Drawer result;
+    private TextView scrollingSlogan;
     private CrossfadeDrawerLayout crossfadeDrawerLayout = null;
 
 
@@ -61,35 +62,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(MainActivity.this);
         new CheckInternetConnection(this).checkConnection();
-
         session = new UserSession(getApplicationContext());
 
-        Typeface typeface = ResourcesCompat.getFont(this, R.font.blacklist);
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.rooster);
         TextView appname = findViewById(R.id.appname);
         appname.setTypeface(typeface);
 
-        getValues();
-        inflateNavDrawer();
+        getUserValues();
+        generateNavDrawer();
+        scrollingSlogan = (TextView) this.findViewById(R.id.slogans);
+        scrollingSlogan.setSelected(true);
 
         imageSlider = findViewById(R.id.slider);
-        inflateImageSlider();
+        generateImageSlider();
     }
 
-    private void inflateNavDrawer() {
+
+    private void generateNavDrawer() {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        IProfile profile = new ProfileDrawerItem()
-//                .withName(name)
-//                .withEmail(email);
-//
-//        AccountHeader headerResult = new AccountHeaderBuilder()
-//                .withActivity(this)
-//                .withHeaderBackground(R.drawable.gradient_background)
-//                .addProfiles(profile)
-//                .withCompactStyle(true)
-//                .build();
 
         //Adding nav drawer items ------------------------------------------------------------------
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.home).withIcon(R.drawable.home);
@@ -100,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withHasStableIds(true)
                 .withDrawerLayout(R.layout.crossfade_drawer)
                 .withDrawerWidthDp(72)
                 .withGenerateMiniDrawer(true)
@@ -110,23 +101,23 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         switch (position){
-                            case 1:
+                            case 0:
                                 if (result != null && result.isDrawerOpen()) {
                                     result.closeDrawer();
                                 }
                                 break;
 
-                            case 2:
-                                startActivity(new Intent(MainActivity.this, CartActivity.class));
+                            case 1:
                                 result.closeDrawer();
+                                startActivity(new Intent(MainActivity.this, CartActivity.class));
                                 break;
 
-                            case 3:
+                            case 2:
                                 result.closeDrawer();
                                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                                 break;
 
-                            case 4:
+                            case 3:
                             session.logoutUser();
                             finish();
                             break;
@@ -147,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
         View view = miniResult.build(this);
         view.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(this, com.mikepenz.materialdrawer.R.attr.material_drawer_background, com.mikepenz.materialdrawer.R.color.material_drawer_background));
+
         crossfadeDrawerLayout.getSmallView().addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         miniResult.withCrossFader(new ICrossfader() {
             @Override
@@ -167,21 +159,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void inflateImageSlider() {
+    private void generateImageSlider() {
 
         ArrayList<SlideModel> slideModels = new ArrayList<>();
-        slideModels.add(new SlideModel("https://m.media-amazon.com/images/G/31/img19/Wireless/Apple/iPhone11/RiverImages/11Pro/IN_iPhone11Pro_DESKTOP_01._CB437064827_.jpg"));
-        slideModels.add(new SlideModel("https://piunikaweb.com/wp-content/uploads/2019/08/oneplus_7_pro_5g_experience_the_power_of_5g_banner-750x354.jpg"));
-        slideModels.add(new SlideModel("https://lh3.googleusercontent.com/RSyeouwiFX4XVq6iw3H94al0VcXD693tBy2MxhBKCxAHCIfIpdt7wDV47_j2HanPSnTli7JgZ0fYHxESjz0uvVgeCBT3=w1000"));
-        slideModels.add(new SlideModel("https://cdn.metrobrands.com/mochi/media/images/content/Homepage/HOTTMARZZ-BANNER-MOCHI.webp"));
-        slideModels.add(new SlideModel("https://i.pinimg.com/originals/b2/78/7c/b2787cea792bff7d2c33e26ada6436bb.jpg"));
-        slideModels.add(new SlideModel("https://cdnb.artstation.com/p/assets/images/images/016/802/459/large/shuja-shuaib-banner.jpg?1553535424"));
+        slideModels.add(new SlideModel("https://img.freepik.com/free-photo/female-legs-heel-sneaker-yellow-background_185193-83306.jpg?w=2000"));
+        slideModels.add(new SlideModel("https://media.gq.com/photos/620ff1a2f59deb0e8e8345bd/master/pass/shirts.jpg"));
+        slideModels.add(new SlideModel("https://media.istockphoto.com/photos/photo-of-nice-lady-hiding-eyes-with-hood-sending-air-kiss-wear-yellow-picture-id1166158026?k=20&m=1166158026&s=612x612&w=0&h=sRdjZ2pjryfdNE_QpELpXlaO5a9FbEW-Oc73SGzAFHc="));
+        slideModels.add(new SlideModel("https://img.freepik.com/free-photo/magnificent-woman-long-bright-skirt-dancing-studio-carefree-inspired-female-model-posing-with-pleasure-yellow_197531-11084.jpg?w=2000"));
+        slideModels.add(new SlideModel("https://img.freepik.com/free-photo/pretty-hispanic-woman-with-bronze-skin-waving-hands-while-sitting-longboard-inspired-latin-girl-sunglasses-posing-skateboard_197531-4153.jpg"));
+        slideModels.add(new SlideModel("https://wi.wallpapertip.com/wsimgs/25-255529_spring-summer-2020-mens-sport-fashion-trends.png"));
 
         imageSlider.setImageList(slideModels,true);
 
     }
 
-    private void getValues() {
+    private void getUserValues() {
         session.isLoggedIn();
         user = session.getUserDetails();
 

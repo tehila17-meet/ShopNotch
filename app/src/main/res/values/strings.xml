@@ -28,8 +28,6 @@
     <string name="cart">Cart</string>
     <string name="logout">Logout</string>
     <string name="noconnection">No Connection To A Network. Please Connect</string>
-    <string name="update_details">Update Details</string>
-    <string name="update">Update</string>
     <string name="back">Back</string>
     <string name="registermail1">Welcome to shop notch!</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

@@ -73,6 +73,25 @@
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"/>
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/empty_cart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:foregroundGravity="center"
+                android:src="@drawable/cartempty"
+                android:visibility="invisible"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="empty_list.json"
+                app:lottie_loop="true" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/tv_no_cards"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="loadinganim.json"
+                app:lottie_loop="true" />
+
         </FrameLayout>
 
         <LinearLayout
@@ -86,19 +105,20 @@
             android:paddingTop="5dp"
             android:background="@drawable/gradient_v2"
             >
+
             <TextView
                 android:id="@+id/total_items_tv"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Total Items: 1"
-                style="@style/TextAppearance.AppCompat.Medium"/>
+                tools:text="Total Items: 1" />
 
             <TextView
                 android:id="@+id/total_amount_tv"
+                style="@style/TextAppearance.AppCompat.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Total Amount: ₹ 1399"
-                style="@style/TextAppearance.AppCompat.Large"/>
+                tools:text="Total Amount: $0" />
         </LinearLayout>
 
         <TextView
@@ -108,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:background="@color/colorPrimary"
-            android:text="CHECKOUT"
+            android:text="Checkout"
             android:elevation="40dp"
             android:textSize="14dp"
             android:textColor="@color/gen_white"
@@ -117,25 +137,6 @@
             android:onClick="checkout"/>
 
     </LinearLayout>
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/tv_no_cards"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:lottie_fileName="loadinganim.json"
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true"/>
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/empty_cart"
-        android:layout_width="match_parent"
-        app:lottie_fileName="empty_list.json"
-        android:layout_height="match_parent"
-        android:foregroundGravity="center"
-        android:src="@drawable/cartempty"
-        android:visibility="invisible"
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true"/>
 
 
 </RelativeLayout>

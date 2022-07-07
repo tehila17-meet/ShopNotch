@@ -111,7 +111,7 @@
                         <ImageView
                             android:id="@+id/shoes"
                             style="@style/homegridimage"
-                            android:src="@drawable/shoe_icon" />
+                            android:src="@drawable/shoes" />
 
                         <TextView
                             android:layout_below="@id/shoes"
@@ -161,13 +161,13 @@
                         android:layout_height="match_parent">
 
                         <ImageView
-                            android:id="@+id/bags"
-                            android:src="@drawable/bags"
+                            android:id="@+id/pants"
+                            android:src="@drawable/pants"
                             style="@style/homegridimage" />
 
                         <TextView
-                            android:layout_below="@id/bags"
-                            android:text="Panst"
+                            android:layout_below="@id/pants"
+                            android:text="Bottoms"
                             style="@style/homegridtext"/>
 
                     </RelativeLayout>
@@ -186,7 +186,7 @@
                         <ImageView
                             android:id="@+id/Stationary"
                             style="@style/homegridimage"
-                            android:src="@drawable/sunglasses" />
+                            android:src="@drawable/sweaters" />
 
                         <TextView
                             android:layout_below="@id/Stationary"
@@ -216,7 +216,7 @@
                         <ImageView
                             android:id="@+id/calendars"
                             style="@style/homegridimage"
-                            android:src="@drawable/smartphone_color" />
+                            android:src="@drawable/shirt" />
 
                         <TextView
                             android:layout_below="@id/calendars"
@@ -238,7 +238,7 @@
                         <ImageView
                             android:id="@+id/keychain"
                             style="@style/homegridimage"
-                            android:src="@drawable/laptop" />
+                            android:src="@drawable/sports" />
 
                         <TextView
                             android:layout_below="@id/keychain"
@@ -254,33 +254,30 @@
         </LinearLayout>
 
             <LinearLayout
-                android:gravity="center"
-                android:background="#34495e"
-                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:background="#2A71B8"
+                android:gravity="center"
+                android:padding="10dp"
                 android:weightSum="10">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:padding="5dp"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/slogans"
                     style="@style/headingfonts"
-                    android:textColor="#bdc3c7"
-                    android:text="Shop Notch With Us!"
-                    android:layout_weight="3"/>
-
-                <com.tomer.fadingtextview.FadingTextView
                     android:layout_width="wrap_content"
-                    android:textColor="#ecf0f1"
-                    app:timeout="500"
-                    style="@style/headingfonts"
-                    android:gravity="center"
                     android:layout_height="match_parent"
-                    app:texts="@array/examples"
-                    android:layout_weight="7"/>
+                    android:layout_weight="7"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/abeezee_italic"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="Shop Notch With us!     Top Quality Clothing       50% off all hoodies    Superb Online Shopping Experience!"
+                    android:textColor="#ecf0f1" />
 
             </LinearLayout>
 

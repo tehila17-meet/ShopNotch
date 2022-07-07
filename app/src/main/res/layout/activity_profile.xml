@@ -44,15 +44,6 @@
                     android:layout_marginRight="10dp"
                     android:onClick="viewCart"/>
 
-                <TextView
-                    android:id="@+id/updatedetails"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Update"
-                    android:textAllCaps="true"
-                    android:layout_marginRight="20dp"
-                    android:textColor="#1976d2"/>
 
             </LinearLayout>
 
@@ -138,28 +129,28 @@
                 android:layout_marginTop="2dp"/>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:orientation="horizontal"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp">
 
                 <ImageView
-                    android:layout_gravity="center"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/smartphone"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/smartphone" />
 
                 <TextView
                     android:id="@+id/mobileview"
+                    style="@style/fonts"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="30dp"
-                    style="@style/fonts"
-                    android:textColor="#424242"/>
+                    android:textColor="#424242" />
 
             </LinearLayout>
 
@@ -168,48 +159,12 @@
                 android:background="@color/grey_light"
                 android:layout_marginTop="2dp"/>
 
-            <LinearLayout
-                android:id="@+id/addressview"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
 
-                <ImageView
-                    android:layout_gravity="center"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/agenda"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="30dp"
-                    style="@style/fonts"
-                    android:layout_weight="0.9"
-                    android:text="My Wishlist"
-                    android:textColor="#424242"/>
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:gravity="right"
-                    android:layout_weight="0.1"
-                    android:src="@drawable/rightarrow"/>
-
-            </LinearLayout>
 
             <View android:layout_width="match_parent"
                 android:layout_height="@dimen/view_width_small"
                 android:background="@color/grey_light"
                 android:layout_marginTop="2dp"/>
-
-            <!--Update User Details-->
-
 
 
         </LinearLayout>

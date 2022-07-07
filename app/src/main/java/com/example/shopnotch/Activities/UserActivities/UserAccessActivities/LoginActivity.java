@@ -1,5 +1,6 @@
 package com.example.shopnotch.Activities.UserActivities.UserAccessActivities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
@@ -11,16 +12,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shopnotch.Activities.MainActivity;
 import com.example.shopnotch.Utilities.GeneralUtils.CheckInternetConnection;
 import com.example.shopnotch.R;
 import com.example.shopnotch.UserSession.UserSession;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.kaopiz.kprogresshud.KProgressHUD;
+
+import es.dmoral.toasty.Toasty;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        Typeface typeface = ResourcesCompat.getFont(this, R.font.blacklist);
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.rooster);
         appname = findViewById(R.id.appname);
         appname.setTypeface(typeface);
 
@@ -68,56 +76,49 @@ public class LoginActivity extends AppCompatActivity {
                             .setAnimationSpeed(2)
                             .setDimAmount(0.5f)
                             .show();
-                session.createLoginSession("testing", "testing@gmail.com","0547410448");
-                progressDialog.dismiss();
 
-                Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(loginSuccess);
-                finish();
+                mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    boolean isEmailVerified = checkIfEmailVerified();
+                                if(!isEmailVerified){
+                                    progressDialog.dismiss();
+                                    Toasty.error(LoginActivity.this,"Email Not Verified.",2000).show();
+                                } else {
+                                    userID = mAuth.getCurrentUser().getUid();
+                                    firebaseFirestore.collection("Users").document(userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (!task.isSuccessful()) {
+                                                if (task.getResult().exists()) {
+                                                    String sessionname = task.getResult().getString("name");
+                                                    String sessionmobile = task.getResult().getString("number");
+                                                    String sessionemail = task.getResult().getString("email");
+                                                    session.createLoginSession(sessionname,sessionemail,sessionmobile);
 
-//                mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//                if(task.isSuccessful()){
-//
-//                    boolean isEmailVerified = checkIfEmailVerified();
-//                                if(!isEmailVerified){
-//                                    progressDialog.dismiss();
-//                                    Toasty.error(LoginActivity.this,"Email Not Verified.",2000).show();
-//                                } else {
-//                                    userID = mAuth.getCurrentUser().getUid();
-//                                    firebaseFirestore.collection("Users").document(userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                                        @Override
-//                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                                            if (!task.isSuccessful()) {
-//                                                if (task.getResult().exists()) {
-//                                                    String sessionname = task.getResult().getString("name");
-//                                                    String sessionmobile = task.getResult().getString("number");
-//                                                    String sessionemail = task.getResult().getString("email");
-//                                                    session.createLoginSession(sessionname,sessionemail,sessionmobile);
-//                                                    session.createLoginSession("testing", "testing@gmail.com","0547410448");
-//                                                    progressDialog.dismiss();
-//
-//                                                    Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
-//                                                    startActivity(loginSuccess);
-//                                                    finish();
-//                                                }
-//                                            } else {
-//                                                Log.w( "_ERR", "signInWithEmailAndPWD:failure", task.getException());
-//
-//                                                progressDialog.dismiss();
-//                                                Toast.makeText(LoginActivity.this, "Login Error. Please try again.", Toast.LENGTH_SHORT).show();
-//                                            }
-//
-//                                        }
-//                                    });
-//                                }
-//                            } else {
-//                                progressDialog.dismiss();
-//                                Toasty.error(LoginActivity.this,"Couldn't Log In. Please check your Email/Password",2000).show();
-//                            }
-//                        }
-//                    });
+
+                                                    progressDialog.dismiss();
+
+                                                    Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
+                                                    startActivity(loginSuccess);
+                                                    finish();
+                                                }
+                                            } else {
+                                                Log.w( "_ERR", "signInWithEmailAndPWD:failure", task.getException());
+
+                                                progressDialog.dismiss();
+                                                Toast.makeText(LoginActivity.this, "Login Error. Please try again.", Toast.LENGTH_SHORT).show();
+                                            }
+
+                                        }
+                                    });
+                                }
+                            } else {
+                                progressDialog.dismiss();
+                                Toasty.error(LoginActivity.this,"Couldn't Log In. Please check your Email/Password",2000).show();
+                            }
+                        }
+                    });
             }
         });
 
@@ -151,7 +152,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.e("Login CheckPoint","LoginActivity resumed");
-        //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
     }
 

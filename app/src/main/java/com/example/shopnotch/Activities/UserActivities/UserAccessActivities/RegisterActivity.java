@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         new CheckInternetConnection(this).checkConnection();
-        Typeface typeface = ResourcesCompat.getFont(this, R.font.blacklist);
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.rooster);
 
         TextView appname = findViewById(R.id.appname);
         appname.setTypeface(typeface);

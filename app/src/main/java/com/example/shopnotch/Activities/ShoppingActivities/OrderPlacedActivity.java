@@ -24,12 +24,8 @@ public class OrderPlacedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_placed);
-
         ButterKnife.bind(this);
-
-        //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
-
         initialize();
     }
 

@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class SingleProductModel implements Serializable {
 
     private int prid,no_of_items;
-    private String useremail,usermobile,prname,prprice,primage,prdesc;
+    private String useremail,usermobile,prname,prprice,primage;
 
 
     public SingleProductModel(int prid, int no_of_items, String useremail, String usermobile, String prname, String prprice, String primage) {

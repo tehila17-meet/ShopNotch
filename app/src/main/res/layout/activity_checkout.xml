@@ -144,7 +144,7 @@
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:onClick="connectToPayPal"
+                android:onClick="connectToPaypal"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_horizontal"
                 android:text="Pay With PayPal"

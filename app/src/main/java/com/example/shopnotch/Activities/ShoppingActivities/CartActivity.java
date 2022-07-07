@@ -40,7 +40,7 @@ import java.util.HashMap;
 public class CartActivity extends AppCompatActivity {
 
     private final String TAG = this.getClass().getSimpleName()+"_xlr8";
-    //to get user session data
+
     private UserSession session;
     private HashMap<String,String> user;
     private String name,email,photo,mobile;
@@ -79,24 +79,15 @@ public class CartActivity extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
         firebaseFirestore = FirebaseFirestore.getInstance();
-
         no_of_items_tv = findViewById(R.id.total_items_tv);
         total_amount_tv = findViewById(R.id.total_amount_tv);
         details_layout = findViewById(R.id.details_layout);
-
         checkout = findViewById(R.id.text_action_bottom2);
-
-
-        //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
 
-        //retrieve session values and display on listviews
-        getValues();
+        getUserValues();
 
-        //SharedPreference for Cart Value
         session = new UserSession(getApplicationContext());
-
-        //validating session
         session.isLoggedIn();
 
         mRecyclerView = findViewById(R.id.recyclerview);
@@ -106,11 +97,9 @@ public class CartActivity extends AppCompatActivity {
         cartcollect = new ArrayList<>();
 
         if (mRecyclerView != null) {
-            //to enable optimization of recyclerview
             mRecyclerView.setHasFixedSize(true);
         }
 
-        //using staggered grid pattern in recyclerview
         mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -121,8 +110,6 @@ public class CartActivity extends AppCompatActivity {
 
     private void populateRecyclerView() {
 
-        Log.d(TAG,"Populate Recycler view called");
-
 
         Query query = firebaseFirestore.collection("Cart").document(user.get(UserSession.KEY_EMAIL))
                 .collection(user.get(UserSession.KEY_NAME)+" Cart");
@@ -132,7 +119,6 @@ public class CartActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                 if(task.isSuccessful()){
-                    Log.d(TAG,"Task Success");
                     if(task.getResult().size()==0){
 
                         tv_no_item.setVisibility(View.GONE);
@@ -153,35 +139,25 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
-        Log.d(TAG,"Creating Response");
-
         final FirestoreRecyclerOptions<SingleProductModel> response = new FirestoreRecyclerOptions.Builder<SingleProductModel>()
                 .setQuery(query, SingleProductModel.class)
                 .build();
-
-        Log.d(TAG,"Response Created");
-        Log.d(TAG,"Getting Data");
-        //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
         adapter =new FirestoreRecyclerAdapter<SingleProductModel, CartActivity.ProductView>(response) {
             @Override
             protected void onBindViewHolder(@NonNull CartActivity.ProductView viewHolder, final int position, @NonNull SingleProductModel model) {
-                Log.d(TAG,"onBindViewHolder called for: "+position);
-
                 if(tv_no_item.getVisibility()== View.VISIBLE){
                     tv_no_item.setVisibility(View.GONE);
                 }
                 viewHolder.cardname.setText(model.getPrname());
-                viewHolder.cardprice.setText("₹ "+model.getPrprice());
+                viewHolder.cardprice.setText("$ "+model.getPrprice());
                 viewHolder.cardcount.setText("Quantity : "+model.getNo_of_items());
-                viewHolder.totalCardAmt.setText("₹ "+model.getPrprice()+" x "+model.getNo_of_items()+" = ₹ "+(Float.valueOf(model.getPrprice())*model.getNo_of_items()));
+                viewHolder.totalCardAmt.setText("$ "+model.getPrprice()+" x "+model.getNo_of_items()+" = $ "+(Float.valueOf(model.getPrprice())*model.getNo_of_items()));
                 Picasso.get().load(model.getPrimage()).into(viewHolder.cardimage);
 
                 totalcost += model.getNo_of_items()*Float.parseFloat(model.getPrprice());
                 totalproducts += model.getNo_of_items();
                 cartcollect.add(model);
 
-                no_of_items_tv.setText("No. of Items- "+totalproducts);
-                total_amount_tv.setText("Total Amount- ₹"+totalcost);
 
                     checkout.setVisibility(View.VISIBLE);
                     details_layout.setVisibility(View.VISIBLE);
@@ -202,10 +178,9 @@ public class CartActivity extends AppCompatActivity {
 
             @NonNull
             @Override
-            public CartActivity.ProductView onCreateViewHolder(@NonNull ViewGroup group, int viewType) {
-                Log.d(TAG,"Inflating Layout");
-                View view = LayoutInflater.from(group.getContext())
-                        .inflate(R.layout.cart_item_layout, group, false);
+            public CartActivity.ProductView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.cart_item_layout, parent, false);
 
                 return new ProductView(view);
 
@@ -214,33 +189,18 @@ public class CartActivity extends AppCompatActivity {
 
         };
 
-        Log.d("xlr8_cart", String.valueOf(cartcollect));
-
-
         adapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(adapter);
+        adapter.startListening();
 
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, String.valueOf(response.getSnapshots()));
-
-            }
-        },10000);
 
 
     }
 
-    private void getValues() {
+    private void getUserValues() {
 
-        //create new session object by passing application context
         session = new UserSession(getApplicationContext());
-
-        //validating session
         session.isLoggedIn();
-
-        //get User details if logged in
         user = session.getUserDetails();
 
         name = user.get(UserSession.KEY_NAME);
@@ -254,16 +214,10 @@ public class CartActivity extends AppCompatActivity {
         return true;
     }
 
-    public void viewProfile(View view) {
-        startActivity(new Intent(CartActivity.this, ProfileActivity.class));
-        finish();
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
 
     }
@@ -272,18 +226,15 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("xlr8","Adapter Listening");
         adapter.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("xlr8","Adapter Not  Listening");
         adapter.stopListening();
     }
 
-    //viewHolder for our Firebase UI
     public static class ProductView extends RecyclerView.ViewHolder{
 
         TextView cardname;
@@ -313,6 +264,11 @@ public class CartActivity extends AppCompatActivity {
         intent.putExtra("totalproducts",Integer.toString(totalproducts));
         intent.putExtra("cartproducts",cartcollect);
         startActivity(intent);
+        finish();
+    }
+
+    public void viewProfile(View view) {
+        startActivity(new Intent(CartActivity.this, ProfileActivity.class));
         finish();
     }
 

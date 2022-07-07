@@ -29,7 +29,7 @@ public class LauncherActivity extends AppCompatActivity {
         session =new UserSession(LauncherActivity.this);
 
         appname= findViewById(R.id.appname);
-        Typeface typeface = ResourcesCompat.getFont(this, R.font.blacklist);
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.rooster);
         appname.setTypeface(typeface);
 
         YoYo.with(Techniques.Bounce)

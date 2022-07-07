@@ -18,7 +18,7 @@
             android:layout_height="150dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/app_icon"/>
+            android:src="@drawable/shopnotch_logo"/>
 
         <TextView
             android:layout_marginTop="10dp"

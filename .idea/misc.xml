@@ -17,6 +17,9 @@
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/drawable/material_drawer_circle_mask.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/drawable/order_hist_icon.xml" value="0.1" />
+        <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/drawable/please_wait_icon.xml" value="0.1015625" />
+        <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/drawable/red_heart_icon.xml" value="0.1015625" />
+        <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/drawable/rounded_shape.xml" value="0.1015625" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/drawable/white_add_icon.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_cart.xml" value="0.1" />
@@ -27,7 +30,9 @@
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_main2.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_order_details.xml" value="0.1" />
+        <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_order_placed.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_pants.xml" value="0.1" />
+        <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_payment.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_profile.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_shirts.xml" value="0.1" />
@@ -37,11 +42,12 @@
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_sweaters.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_test.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_tshirts.xml" value="0.1" />
+        <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_update_data.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_welcome.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/activity_wishlist.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/app_bar_main.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/cards_cardview_layout.xml" value="0.1" />
-        <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/cart_item_layout.xml" value="0.1796875" />
+        <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/cart_item_layout.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/crossfade_drawer.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/fragment_gallery.xml" value="0.1796875" />
@@ -55,6 +61,11 @@
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/layout/wishlist_item_layout.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/menu/activity_main_drawer.xml" value="0.1" />
         <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/menu/main.xml" value="0.1" />
+        <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/mipmap/ic_launcher.xml" value="0.1015625" />
+        <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/mipmap/ic_launcher_icon.xml" value="0.1015625" />
+        <entry key="..\:/Users/Tehila/Desktop/Shop Notch/app/src/main/res/mipmap/ic_launcher_round.xml" value="0.1015625" />
       </map>
     </option>
   </component>

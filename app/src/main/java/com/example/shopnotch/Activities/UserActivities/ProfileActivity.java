@@ -24,7 +24,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView namebutton;
     private CircleImageView primage;
-    private TextView updateDetails;
     private ImageSlider imageSlider;
 
     //to get user session data
@@ -54,20 +53,22 @@ public class ProfileActivity extends AppCompatActivity {
         getValues();
 
         //ImageSLider
-        inflateImageSlider();
+        generateImageSlider();
 
     }
 
-    private void inflateImageSlider() {
+    private void generateImageSlider() {
+
         ArrayList<SlideModel> slideModels = new ArrayList<>();
-        slideModels.add(new SlideModel("https://m.media-amazon.com/images/G/31/img19/Wireless/Apple/iPhone11/RiverImages/11Pro/IN_iPhone11Pro_DESKTOP_01._CB437064827_.jpg"));
-        slideModels.add(new SlideModel("https://piunikaweb.com/wp-content/uploads/2019/08/oneplus_7_pro_5g_experience_the_power_of_5g_banner-750x354.jpg"));
-        slideModels.add(new SlideModel("https://lh3.googleusercontent.com/RSyeouwiFX4XVq6iw3H94al0VcXD693tBy2MxhBKCxAHCIfIpdt7wDV47_j2HanPSnTli7JgZ0fYHxESjz0uvVgeCBT3=w1000"));
-        slideModels.add(new SlideModel("https://cdn.metrobrands.com/mochi/media/images/content/Homepage/HOTTMARZZ-BANNER-MOCHI.webp"));
-        slideModels.add(new SlideModel("https://i.pinimg.com/originals/b2/78/7c/b2787cea792bff7d2c33e26ada6436bb.jpg"));
-        slideModels.add(new SlideModel("https://cdnb.artstation.com/p/assets/images/images/016/802/459/large/shuja-shuaib-banner.jpg?1553535424"));
+        slideModels.add(new SlideModel("https://media.gq.com/photos/620ff1a2f59deb0e8e8345bd/master/pass/shirts.jpg"));
+        slideModels.add(new SlideModel("https://img.freepik.com/free-photo/female-legs-heel-sneaker-yellow-background_185193-83306.jpg?w=2000"));
+        slideModels.add(new SlideModel("https://media.istockphoto.com/photos/photo-of-nice-lady-hiding-eyes-with-hood-sending-air-kiss-wear-yellow-picture-id1166158026?k=20&m=1166158026&s=612x612&w=0&h=sRdjZ2pjryfdNE_QpELpXlaO5a9FbEW-Oc73SGzAFHc="));
+        slideModels.add(new SlideModel("https://img.freepik.com/free-photo/magnificent-woman-long-bright-skirt-dancing-studio-carefree-inspired-female-model-posing-with-pleasure-yellow_197531-11084.jpg?w=2000"));
+        slideModels.add(new SlideModel("https://img.freepik.com/free-photo/pretty-hispanic-woman-with-bronze-skin-waving-hands-while-sitting-longboard-inspired-latin-girl-sunglasses-posing-skateboard_197531-4153.jpg"));
+        slideModels.add(new SlideModel("https://wi.wallpapertip.com/wsimgs/25-255529_spring-summer-2020-mens-sport-fashion-trends.png"));
 
         imageSlider.setImageList(slideModels,true);
+
     }
 
     @Override
@@ -82,15 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvemail=findViewById(R.id.emailview);
         tvphone=findViewById(R.id.mobileview);
         namebutton=findViewById(R.id.name_button);
-        updateDetails=findViewById(R.id.updatedetails);
 
-        updateDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this,UpdateDataActivity.class));
-                finish();
-            }
-        });
 
 
     }
